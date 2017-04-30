@@ -23,13 +23,13 @@ class AuthController extends Controller
         );
 
         if($authTeachers->attempt($credential)){
-            Session::flash('loginSuccess', 'Login berhasil');
+            Session::flash('loginSuccess', '');
             return redirect(route('user_teacher.index'));
         }else if($authAdmin->attempt($credential)){
-        	Session::flash('loginSuccess', 'Login berhasil');
+        	Session::flash('loginSuccess', '');
             return redirect(route('admin.index'));
         }else{
-            Session::flash('loginFailed', 'Email atau password salah');
+            Session::flash('loginFailed', '');
             return redirect(route('login'));
         }
         return redirect(route('login'));
