@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Course;
 
 class CourseController extends Controller
 {
@@ -13,7 +14,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $data = Course::all();
+
+        return view('admin.course.index')->withData($data);
     }
 
     /**
@@ -34,7 +37,13 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Course;
+        $data->course_code = $request->input('course_code');
+        $data->name = $request->input('name');
+        $data->description = $request->input('description');
+        $data->save();
+
+        return redirect(route('course.index'));
     }
 
     /**
@@ -68,7 +77,13 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Course::where('id', $id)->firstOrFail();
+        $data->course_code = $request->input('course_code');
+        $data->name = $request->input('name');
+        $data->description = $request->input('description');
+        $data->save();
+
+        return redirect(route('course.index'));
     }
 
     /**
@@ -79,6 +94,9 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Course::where('id', $id)->firstOrFail();
+        $data->delete();
+
+        return redirect(route('course.index'));
     }
 }
