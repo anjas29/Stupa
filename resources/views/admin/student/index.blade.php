@@ -8,11 +8,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Teachers
+        Students
       </h1>
       <ol class="breadcrumb">
         <li><a href="/administrator/home"><i class="fa fa-home"></i> Home</a></li>
-        <li class="active"><a href="/administrator/admin">Teachers</a></li>
+        <li class="active"><a href="/administrator/admin">Students</a></li>
       </ol>
     </section>
 
@@ -24,19 +24,19 @@
           <div class='box box-warning'>
             <div class="box-header">
               <i class="fa fa-user-secret"></i>
-              <h3 class="box-title">Teachers</h3>
-              <button class="btn btn-sm btn-primary pull-right" data-toggle='modal' data-target="#createNews">Add Teacher</button>
+              <h3 class="box-title">Students</h3>
+              <button class="btn btn-sm btn-primary pull-right" data-toggle='modal' data-target="#createModal">Add Student</button>
             </div>
             <div class="box-body">
               <table class="table table-striped table-bordered dataTable">
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Teacher Id</th> 
+                    <th>Student Id</th> 
                     <th>Name</th>
+                    <th>Class</th>
                     <th>Gender</th>
-                    <th>Level</th>
-                    <th>Phone</th>
+                    <th>Address</th>
                     <th>Action</th>
                   </tr>                  
                 </thead>
@@ -44,14 +44,14 @@
                   @foreach($data as $i =>  $d)
                   <tr>
                     <td>{{++$i}}</td>
-                    <td>{{$d->teacher_number}}</td>
+                    <td>{{$d->student_number}}</td>
                     <td>{{$d->name}}</td>
+                    <td>{{$d->classes->grade." ".$d->classes->name}}</td>
                     <td>{{$d->gender}}</td>
-                    <td>{{$d->level}}</td>
-                    <td>{{$d->phone}}</td>
+                    <td>{{$d->address}}</td>
                     <td>
-                      <a href="#" class="edit btn btn-xs btn-primary" data-id='{{$d->id}}' data-teacher_number='{{$d->teacher_number}}' data-name='{{$d->name}}' data-gender='{{$d->gender}}' data-level='{{$d->level}}' data-phone='{{$d->phone}}' data-created_at="{{$d->created_at}}"><i class="fa fa-pencil"></i></a>
-                      <a href="#" class="delete btn btn-xs btn-danger" data-id='{{$d->id}}' data-teacher_number='{{$d->teacher_number}}' data-name='{{$d->name}}' data-gender='{{$d->gender}}' data-level='{{$d->level}}' data-phone='{{$d->phone}}' data-created_at="{{$d->created_at}}"><i class="fa fa-times"></i></a>
+                      <a href="#" class="edit btn btn-xs btn-primary" data-id='{{$d->id}}' data-student_number='{{$d->student_number}}' data-name='{{$d->name}}' data-gender='{{$d->gender}}' data-classes_id='{{$d->class_id}}' data-address='{{$d->address}}'><i class="fa fa-pencil"></i></a>
+                      <a href="#" class="delete btn btn-xs btn-danger" data-id='{{$d->id}}' data-student_number='{{$d->student_number}}' data-name='{{$d->name}}'><i class="fa fa-times"></i></a>
                     </td>
                   </tr>
                   @endforeach
@@ -69,19 +69,19 @@
   <!-- /.content-wrapper -->
 
   <!-- create  Modal -->
-  <div class="modal fade" tabindex="-1" role="dialog" id='createNews'>
+  <div class="modal fade" tabindex="-1" role="dialog" id='createModal'>
     <div class="modal-dialog" role="document">
-      <form action="/admin/teacher" method="post">
+      <form action="/admin/student" method="post">
         <div class="modal-content">
           <div class="modal-header">
-            <strong>Add New Teacher</strong><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            <strong>Add New Student</strong><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
           </div>
           <div class="modal-body">
             <div class="col-md-12">
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-feed"></i></span>
-                  <input type="text" class="form-control" placeholder="Teacher Id" id='createTitle' name="teacher_number">
+                  <input type="text" class="form-control" placeholder="Student Id" id='createTitle' name="student_number">
                 </div>
               </div>
               <div class="form-group">
@@ -93,7 +93,12 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-feed"></i></span>
-                  <input type="text" class="form-control" placeholder="Level" id='createTitle' name="level">
+                  <select class="form-control" name="class_id">
+                    <option>Select Class</option>
+                    @foreach($classes as $c)
+                      <option value="{{$c->id}}">{{$c->grade}} {{$c->name}}</option>
+                    @endforeach
+                  </select>
                 </div>
               </div>
               <div class="form-group">
@@ -108,7 +113,7 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-feed"></i></span>
-                  <input type="text" class="form-control" placeholder="Phone" id='createTitle' name="phone">
+                  <input type="text" class="form-control" placeholder="Address" id='createTitle' name="address">
                 </div>
               </div>
             </div>
@@ -126,17 +131,17 @@
   <!--Detail Class Modal -->
   <div class="modal fade" tabindex="-1" role="dialog" id='detailModal'>
     <div class="modal-dialog" role="document">
-      <form action="/admin/teacher/" method="post" id="edit-form">
+      <form action="/admin/student/" method="post" id="edit-form">
         <div class="modal-content">
           <div class="modal-header">
-            <strong>Detail Teacher</strong><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            <strong>Detail Student</strong><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
           </div>
           <div class="modal-body">
             <div class="col-md-12">
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-feed"></i></span>
-                  <input type="text" class="form-control" placeholder="Teacher Id" id='detailTeacherNumber' name="teacher_number">
+                  <input type="text" class="form-control" placeholder="Student Id" id='detailStudentNumber' name="student_number">
                 </div>
               </div>
               <div class="form-group">
@@ -148,7 +153,12 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-feed"></i></span>
-                  <input type="text" class="form-control" placeholder="Level" id='detailLevel' name="level">
+                  <select class="form-control" name="class_id" id="detailClass">
+                    <option>Select Class</option>
+                    @foreach($classes as $c)
+                      <option value="{{$c->id}}">{{$c->grade}} {{$c->name}}</option>
+                    @endforeach
+                  </select>
                 </div>
               </div>
               <div class="form-group">
@@ -163,7 +173,7 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-feed"></i></span>
-                  <input type="text" class="form-control" placeholder="Phone" id='detailPhone' name="phone">
+                  <input type="text" class="form-control" placeholder="Phone" id='detailAddress' name="address">
                 </div>
               </div>
             </div>
@@ -191,18 +201,23 @@
 
       $('.edit').click(function(){
         var name = $(this).data('name');
-        var level = $(this).data('level');
-        var teacher_number = $(this).data('teacher_number');
-        var phone = $(this).data('phone');
+        var classes_id = $(this).data('classes_id');
+        var student_number = $(this).data('student_number');
+        var address = $(this).data('address');
         var gender = $(this).data('gender');
         var id = $(this).data('id');
 
-        $("#edit-form").attr("action", "/admin/teacher/" + id);
+        $("#edit-form").attr("action", "/admin/student/" + id);
+
+         $('#detailClass').find('option').each(function(){
+          if ($(this).val() == classes_id){
+            $(this).attr("selected","selected");
+          }
+        });
 
         $('#detailName').val(name);
-        $('#detailLevel').val(level);
-        $('#detailTeacherNumber').val(teacher_number);
-        $('#detailPhone').val(phone);
+        $('#detailAddress').val(address);
+        $('#detailStudentNumber').val(student_number);
 
         if(gender == 'Male'){
           $('#optionMale').attr('selected', 'selected');
@@ -218,20 +233,21 @@
       });
       $('.delete').click(function() {
         var id = $(this).data('id');
-        var name = $(this).data('name')
+        var name = $(this).data('name');
+        var student_number = $(this).data('student_number');
         var _method = 'delete';
         var _token = '{{csrf_token()}}';
 
-        bootbox.confirm("<b>Delete Teacher</b> : <strong>"+name+" </strong> ?", function(result) {
+        bootbox.confirm("<b>Delete Student</b> : <strong>"+name+"("+student_number+")"+" </strong> ?", function(result) {
           if (result) {
             toastr.options.timeOut = 0;
             toastr.options.extendedTimeOut = 0;
             toastr.info('<i class="fa fa-spinner fa-spin"></i><br>Process...');
             toastr.options.timeOut = 5000;
             toastr.options.extendedTimeOut = 1000;
-            $.post("/admin/teacher/"+id, {id: id, _token:_token, _method:_method})
+            $.post("/admin/student/"+id, {id: id, _token:_token, _method:_method})
             .done(function(result) {
-              window.location.replace("/admin/teacher/");
+              window.location.replace("/admin/student/");
             })
             .fail(function(result) {
               toastr.clear();

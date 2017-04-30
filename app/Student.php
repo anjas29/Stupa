@@ -10,12 +10,12 @@ class Student extends Model
 
     public function classes()
     {
-    	return $this->belongsTo('App\Classes');
+    	return $this->belongsTo('App\Classes', 'class_id');
     }
 
     public function detail_course()
     {
-    	return $this->hasMany('App\DetailCourse')
+    	return $this->hasMany('App\DetailCourse');
     }
 
     public function detail_present()
