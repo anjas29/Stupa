@@ -15,8 +15,9 @@ class CreateTableDetailCourse extends Migration
     {
         Schema::create('detail_course', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('classes_id')->unsigned();
-            $table->integer('teachers_id')->unsigned();
+            $table->integer('class_id')->unsigned();
+            $table->integer('course_id')->unsigned();
+            $table->integer('teacher_id')->unsigned();
             $table->integer('period_id')->unsigned();
             $table->timestamps();
         });

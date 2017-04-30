@@ -9,7 +9,11 @@ class DetailCourse extends Model
     protected $table = 'detail_course';
 
     public function classes(){
-    	return $this->belongsTo('App\Class');
+    	return $this->belongsTo('App\Classes', 'class_id');
+    }
+
+    public function course(){
+        return $this->belongsTo('App\Course');
     }
 
     public function period(){

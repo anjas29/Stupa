@@ -31,6 +31,8 @@ Route::group(array('prefix' => 'admin'), function(){
 
 	Route::resource('course', 'CourseController');
 
+	Route::resource('detail_course', 'DetailCourseController');
+
 	Route::resource('present', 'PresentController');
 });
 
