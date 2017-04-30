@@ -1,4 +1,4 @@
-@extends('layouts.admin_layout')
+@extends('layouts.teacher_layout')
 @section('css')
   <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.min.css">
 @stop
@@ -11,8 +11,7 @@
         Dashboard
       </h1>
       <ol class="breadcrumb">
-        <li><a href="/administrator/home"><i class="fa fa-home"></i> Home</a></li>
-        <li class="active"><a href="/administrator/admin">Admin</a></li>
+        <li><a href="/teacher/index"><i class="fa fa-home"></i> Home</a></li>
       </ol>
     </section>
 
@@ -24,7 +23,7 @@
           <div class='box box-warning'>
             <div class="box-header">
               <i class="fa fa-user-secret"></i>
-              <h3 class="box-title">Admin</h3>
+              <h3 class="box-title">Teacher</h3>
             </div>
             <div class="box-body">
               <blockquote>This is Dashboard</blockquote>

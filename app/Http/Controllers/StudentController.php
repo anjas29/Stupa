@@ -47,6 +47,7 @@ class StudentController extends Controller
         $data->gender = $request->input('gender');
         $data->username = $request->input('student_number');
         $data->password = Hash::make($request->input('student_number'));
+        $data->api_token = str_random(60);
         $data->save();
 
         return redirect(route('student.index'));

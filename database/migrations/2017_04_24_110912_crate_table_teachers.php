@@ -22,6 +22,7 @@ class CrateTableTeachers extends Migration
             $table->enum('gender', array('Male', 'Female'));
             $table->string('level');
             $table->string('phone');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

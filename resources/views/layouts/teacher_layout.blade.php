@@ -30,7 +30,7 @@
   <![endif]-->
   @yield('css')
 </head>
-<body class="hold-transition skin-yellow sidebar-mini fixed">
+<body class="hold-transition skin-red sidebar-mini fixed">
 <div class="wrapper">
 
   <header class="main-header">
@@ -57,7 +57,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="/images/default.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{auth('users')->user()->name}}</span>
+              <span class="hidden-xs">{{auth('teachers')->user()->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -65,8 +65,8 @@
                 <img src="/images/default.jpg" class="img-circle" alt="User Image"/>
                 
                 <p>
-                  {{auth('users')->user()->name}}
-                  <small>Administrator</small>
+                  {{auth('teachers')->user()->name}}
+                  <small>Teacher</small>
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -96,8 +96,8 @@
         </div>
         <div class="pull-left info">
           <p>
-          <strong>{{auth('users')->user()->name}}</strong>
-          <br>Administrator</p>
+          <strong>{{auth('teachers')->user()->name}}</strong>
+          <br>Teacher</p>
           
         </div>
       </div>
@@ -105,47 +105,26 @@
       <ul class="sidebar-menu">
         <li class="header">MENU NAVIGATION</li>
         <li>
-          <a href="/admin/index">
+          <a href="/teacher/index">
             <i class="fa fa-home"></i> <span>Home</span>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/period">
-            <i class="fa fa-university"></i> <span>Period</span>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/classes">
-            <i class="fa fa-users"></i> <span>Class</span>
           </a>
         </li>
         <li class="header">MANAGEMENT COURSES</li>
         <li>
-          <a href="/admin/course">
+          <a href="/teacher/course">
             <i class="fa fa-tags"></i> <span>Course</span>
           </a>
         </li>
         <li>
-          <a href="/admin/detail_course">
+          <a href="/teacher/detail_course">
             <i class="fa fa-tag"></i> <span>Active Course</span>
           </a>
         </li>
         <li class="header">MANAGEMENT PRESENCE</li>
         <li>
-          <a href="/admin/presence">
+          <a href="/teacher/presence">
             <!-- presensi kehadiran in english??? -->
             <i class="fa fa-calendar-check-o"></i> <span>Presence</span>
-          </a>
-        </li>
-        <li class="header">MANAGEMENT USERS</li>
-        <li>
-          <a href="/admin/teacher">
-            <i class="fa fa-user-secret"></i> <span>Teachers</span>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/student">
-            <i class="fa fa-user"></i> <span>Students</span>
           </a>
         </li>
       </ul>

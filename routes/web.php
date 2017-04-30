@@ -12,13 +12,21 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
-Route::group(array('prefix' => 'admin'), function(){
-	Route::get('index', function(){
+Route::get('login', 'AuthController@getLogin')->name('login');
+Route::post('login', 'AuthController@postLogin')->name('login.post');
+Route::get('logout', 'AuthController@getLogout')->name('logout');
+
+Route::group(array('prefix' => 'admin', 'middleware'=>'auth:users'), function(){
+	Route::get('/', function(){
 		return view('admin.dashboard.index');
 	});
+
+	Route::get('index', function(){
+		return view('admin.dashboard.index');
+	})->name('admin.index');
 
 	Route::resource('period', 'PeriodController');
 	Route::post('period/activate', 'PeriodController@activatePeriod')->name('period.activate');
@@ -34,6 +42,16 @@ Route::group(array('prefix' => 'admin'), function(){
 	Route::resource('detail_course', 'DetailCourseController');
 
 	Route::resource('presence', 'PresentController');
+});
+
+Route::group(array('prefix'=>'teacher', 'as'=>'user_teacher.', 'middleware'=>'auth:teachers'), function(){
+	Route::get('/', function(){
+		return view('teacher.dashboard.index');
+	});
+	
+	Route::get('index', function(){
+		return view('teacher.dashboard.index');
+	})->name('index');
 });
 
 Route::get('/images/{filename}', function ($filename)
