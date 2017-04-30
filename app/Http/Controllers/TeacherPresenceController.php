@@ -7,7 +7,7 @@ use App\Present;
 use App\DetailCourse;
 use App\DetailPresent;
 use App\Student;
-
+use App;
 class TeacherPresenceController extends Controller
 {
     /**
@@ -75,6 +75,12 @@ class TeacherPresenceController extends Controller
         $notes = $request->input('notes');
         $presents = $request->input('present');
 
+        $dataCourse = DetailCourse::where('id', $request->input('detail_course_id'))
+                                    ->with('course')
+                                    ->with('classes')
+                                    ->first();
+
+
         foreach ($request->input('student_id') as $i => $student) {
             $dataStudent = new DetailPresent;
             $dataStudent->student_id = $student;
@@ -82,6 +88,19 @@ class TeacherPresenceController extends Controller
             $dataStudent->present = $presents[$i];
             $dataStudent->note = $notes[$i];
             $dataStudent->save();
+
+            $sData = Student::where('id', $student)->first();
+            //Send Notification
+            $pusher = App::make('pusher');
+
+            $pusher->trigger( 'student_channel_'.$student,
+                              'data_event', array(
+                                    'student_name'      => $sData->name,
+                                    'student_number'    => $sData->student_number,
+                                    'course_name'       => $dataCourse->course->name,
+                                    'presence'          => $dataStudent->present
+                                )
+                            );
         }
         
         return redirect(route('user_teacher.presence.index'));
