@@ -21,6 +21,7 @@ Route::group(array('prefix' => 'admin'), function(){
 	});
 
 	Route::resource('period', 'PeriodController');
+	Route::post('period/activate', 'PeriodController@activatePeriod')->name('period.activate');
 
 	Route::resource('classes', 'ClassesController');
 

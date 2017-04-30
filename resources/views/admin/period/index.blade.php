@@ -34,6 +34,7 @@
                     <th>No</th>
                     <th>Year</th> 
                     <th>Semester</th>
+                    <th>Status</th>
                     <th>Action</th>
                   </tr>                  
                 </thead>
@@ -43,6 +44,21 @@
                     <td>{{++$i}}</td>
                     <td>{{$d->year}}</td>
                     <td>{{$d->semester}}</td>
+                    <td>
+                      @if($d->status == 0)
+                      <div class="hidden-sm hidden-xs action-buttons">
+                        <a class="blue activate" data-id='{{$d->id}}' data-year='{{$d->year}}' data-semester='{{$d->semester}}'>
+                          <i class="ace-icon fa fa-star-o bigger-140" title="Tidak Aktif"></i>
+                        </a>
+                      </div>
+                      @else
+                      <div class="hidden-sm hidden-xs action-buttons">
+                        <a class="blue">
+                          <i class="ace-icon fa fa-star bigger-140" title="Aktif"></i>
+                        </a>
+                      </div>
+                      @endif
+                    </td>
                     <td>
                       <a href="#" class="edit btn btn-xs btn-primary" data-id='{{$d->id}}' data-year='{{$d->year}}' data-semester='{{$d->semester}}'><i class="fa fa-pencil"></i></a>
                       <a href="#" class="delete btn btn-xs btn-danger" data-id='{{$d->id}}' data-year='{{$d->year}}' data-semester='{{$d->semester}}' ><i class="fa fa-times"></i></a>
@@ -141,6 +157,31 @@
         $('.dataTable').dataTable();
       });
 
+      $('.activate').click(function(){
+        var year = $(this).data('year');
+        var semester = $(this).data('semester');
+        var id = $(this).data('id');
+        var _token = '{{csrf_token()}}';
+
+        bootbox.confirm("<b>Activate this period</b> : <strong>"+year+" Semester "+semester+" </strong> ?", function(result) {
+          if (result) {
+            toastr.options.timeOut = 0;
+            toastr.options.extendedTimeOut = 0;
+            toastr.info('<i class="fa fa-spinner fa-spin"></i><br>Process...');
+            toastr.options.timeOut = 5000;
+            toastr.options.extendedTimeOut = 1000;
+            $.post("/admin/period/activate", {id: id, _token:_token,})
+            .done(function(result) {
+              window.location.replace("/admin/period/");
+            })
+            .fail(function(result) {
+              toastr.clear();
+              toastr.error('Server Error! Please reload this page again.');
+            });
+          };
+        });
+      });
+
       $('.edit').click(function(){
         var year = $(this).data('year');
         var semester = $(this).data('semester');
@@ -176,7 +217,7 @@
               toastr.error('Server Error! Please reload this page again.');
             });
           };
-        }); 
+        });
       });
     </script>
   @stop

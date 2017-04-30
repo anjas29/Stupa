@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Period;
 
 class PeriodController extends Controller
 {
@@ -13,7 +14,8 @@ class PeriodController extends Controller
      */
     public function index()
     {
-        return 'test';
+        $data = Period::all();
+        return view('admin.period.index')->withData($data);
     }
 
     /**
@@ -34,7 +36,13 @@ class PeriodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Period;
+        $data->year = $request->input('year');
+        $data->semester = $request->input('semester');
+        $data->status = 0;
+        $data->save();
+
+        return redirect(route('period.index'));
     }
 
     /**
@@ -68,7 +76,24 @@ class PeriodController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Period::where('id', $id)->firstOrFail();
+        $data->year = $request->input('year');
+        $data->semester = $request->input('semester');
+        $data->save();
+
+        return redirect(route('period.index'));
+    }
+
+    public function activatePeriod(Request $request){
+        $id = $request->input('id');
+
+        Period::where('status', 1)->update(array('status'=> 0));
+
+        $activeData = Period::where('id', $id)->firstOrFail();
+        $activeData->status = 1;
+        $activeData->save();
+
+        return redirect(route('period.index'));   
     }
 
     /**
@@ -79,6 +104,9 @@ class PeriodController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Period::where('id', $id)->firstOrFail();
+        $data->delete();
+
+        return redirect(route('period.index'));  
     }
 }

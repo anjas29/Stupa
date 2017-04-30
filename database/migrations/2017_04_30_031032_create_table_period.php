@@ -17,6 +17,7 @@ class CreateTablePeriod extends Migration
             $table->increments('id');
             $table->string('year');
             $table->string('semester');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
