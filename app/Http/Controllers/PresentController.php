@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Present;
+use App\Course;
+use App\DetailCourse;
+use App\Teacher;
 
 class PresentController extends Controller
 {
@@ -13,7 +17,14 @@ class PresentController extends Controller
      */
     public function index()
     {
-        //
+        $detailCourse = DetailCourse::with('course')->with('teacher')->get();
+        $data = Present::with('detail_course.course')
+                        ->with('detail_course.teacher')
+                        ->get();
+                        
+        return view('admin.present.index')
+                        ->withData($data)
+                        ->withDetaiCourse($detailCourse);
     }
 
     /**

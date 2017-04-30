@@ -33,7 +33,7 @@ Route::group(array('prefix' => 'admin'), function(){
 
 	Route::resource('detail_course', 'DetailCourseController');
 
-	Route::resource('present', 'PresentController');
+	Route::resource('presence', 'PresentController');
 });
 
 Route::get('/images/{filename}', function ($filename)
