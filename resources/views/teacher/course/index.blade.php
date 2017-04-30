@@ -1,4 +1,4 @@
-@extends('layouts.admin_layout')
+@extends('layouts.teacher_layout')
 @section('css')
   <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.min.css">
 @stop
@@ -8,11 +8,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Presence
+        Active Course
       </h1>
       <ol class="breadcrumb">
         <li><a href="/administrator/home"><i class="fa fa-home"></i> Home</a></li>
-        <li class="active"><a href="/administrator/admin">Presence</a></li>
+        <li class="active"><a href="/administrator/admin">Active Course</a></li>
       </ol>
     </section>
 
@@ -24,33 +24,31 @@
           <div class='box box-warning'>
             <div class="box-header">
               <i class="fa fa-user-secret"></i>
-              <h3 class="box-title">Presence</h3>
+              <h3 class="box-title">Active Course</h3>
             </div>
             <div class="box-body">
               <table class="table table-striped table-bordered dataTable">
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Time</th>
-                    <th>Course</th>
-                    <th>Class</th>
+                    <th>Course Code</th> 
+                    <th>Name</th>
                     <th>Teacher</th>
-                    <th>Note</th>
-                    <th>Action</th>
+                    <th>Class</th>
+                    <th>Period</th>
+                    <th>Semester</th>
                   </tr>                  
                 </thead>
                 <tbody>
                   @foreach($data as $i =>  $d)
                   <tr>
                     <td>{{++$i}}</td>
-                    <td>{{$d->date}}</td>
-                    <td>{{$d->detail_course->course->name}}</td>
-                    <td>{{$d->detail_course->classes->grade.$d->detail_course->classes->name}}</td>
-                    <td>{{$d->detail_course->teacher->name}}</td>
-                    <td>{{$d->note}}</td>
-                    <td>
-                      <a href="/admin/detail_presence/{{$d->id}}" class="edit btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
-                    </td>
+                    <td>{{$d->course->course_code}}</td>
+                    <td>{{$d->course->name}}</td>
+                    <td>{{$d->teacher->name}}</td>
+                    <td>{{$d->classes->grade.$d->classes->name}}</td>
+                    <td>{{$d->period->year}}</td>
+                    <td>{{$d->period->semester}}</td>
                   </tr>
                   @endforeach
                 </tbody>
@@ -65,15 +63,27 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
-  
+
   @endsection
-  @section('js')
+  @push('js')
     <script src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('/js/dataTables.bootstrap.js') }}"></script>
     <script>
       $(document).ready(function() {
         $('.dataTable').dataTable();
       });
+
+      $('.edit').click(function(){
+        var name = $(this).data('name');
+        var class_id = $(this).data('class_id');
+        var course_id = $(this).data('course_id');
+        var teacher_id = $(this).data('teacher_id');
+
+        $('#detailClass').val(class_id);
+        $('#detailCourse').val(course_id);
+        $('#detailTeacher').val(teacher_id);
+        $('#detailModal').modal();
+
+      });
     </script>
-  @stop
+  @endpush

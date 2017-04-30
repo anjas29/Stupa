@@ -9,7 +9,7 @@ class Teacher extends Authenticatable
 {
     protected $table = 'teachers';
 
-    protected $hidden = array('password');
+    protected $hidden = array('password', 'remember_token');
 
     public function detail_course()
     {

@@ -9,6 +9,8 @@ class Student extends Authenticatable
 {
     protected $table = 'students';
 
+    protected $hidden = array('password', 'remember_token', 'api_token');
+
     public function classes()
     {
     	return $this->belongsTo('App\Classes', 'class_id');

@@ -23,6 +23,7 @@ class CrateTableStudents extends Migration
             $table->enum('gender', array('Male', 'Female'));
             $table->text('address');
             $table->string('api_token', 60)->nullable();
+            $table->remembertoken();
             $table->timestamps();
         });
     }

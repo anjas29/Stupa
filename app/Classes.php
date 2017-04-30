@@ -9,7 +9,7 @@ class Classes extends Model
     protected $table = 'classes';
 
     public function students(){
-    	return $this->hasMany('App\Student');
+    	return $this->hasMany('App\Student', 'class_id');
     }
 
     public function courses(){

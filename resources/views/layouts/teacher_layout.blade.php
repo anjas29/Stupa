@@ -109,18 +109,11 @@
             <i class="fa fa-home"></i> <span>Home</span>
           </a>
         </li>
-        <li class="header">MANAGEMENT COURSES</li>
         <li>
           <a href="/teacher/course">
-            <i class="fa fa-tags"></i> <span>Course</span>
-          </a>
-        </li>
-        <li>
-          <a href="/teacher/detail_course">
             <i class="fa fa-tag"></i> <span>Active Course</span>
           </a>
         </li>
-        <li class="header">MANAGEMENT PRESENCE</li>
         <li>
           <a href="/teacher/presence">
             <!-- presensi kehadiran in english??? -->
@@ -193,6 +186,6 @@
     @endif
   });
   </script>
-  @yield('js')
+  @stack('js')
 </body>
 </html>

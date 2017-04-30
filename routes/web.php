@@ -52,6 +52,10 @@ Route::group(array('prefix'=>'teacher', 'as'=>'user_teacher.', 'middleware'=>'au
 	Route::get('index', function(){
 		return view('teacher.dashboard.index');
 	})->name('index');
+
+	Route::resource('course', 'TeacherCourseController');
+	Route::resource('presence', 'TeacherPresenceController');
+	Route::post('presence/create', 'TeacherPresenceController@postCreate');
 });
 
 Route::get('/images/{filename}', function ($filename)

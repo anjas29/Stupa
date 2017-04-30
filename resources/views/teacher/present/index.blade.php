@@ -1,4 +1,4 @@
-@extends('layouts.admin_layout')
+@extends('layouts.teacher_layout')
 @section('css')
   <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.min.css">
 @stop
@@ -25,7 +25,7 @@
             <div class="box-header">
               <i class="fa fa-user-secret"></i>
               <h3 class="box-title">Presence</h3>
-              <button class="btn btn-sm btn-primary pull-right" data-toggle='modal' data-target="#createModal">Add New Presence</button>
+              <button class="btn btn-sm btn-primary pull-right" data-toggle='modal' data-target="#createModal">Add Presence</button>
             </div>
             <div class="box-body">
               <table class="table table-striped table-bordered dataTable">
@@ -33,7 +33,8 @@
                   <tr>
                     <th>No</th>
                     <th>Time</th>
-                    <th>Course</th> 
+                    <th>Course</th>
+                    <th>Class</th>
                     <th>Teacher</th>
                     <th>Note</th>
                     <th>Action</th>
@@ -43,13 +44,14 @@
                   @foreach($data as $i =>  $d)
                   <tr>
                     <td>{{++$i}}</td>
-                    <td>{{$d->created_at}}</td>
-                    <td>{{$d->coures->name}}</td>
-                    <td>{{$d->teacher->name}}</td>
+                    <td>{{$d->date}}</td>
+                    <td>{{$d->detail_course->course->name}}</td>
+                    <td>{{$d->detail_course->classes->grade.$d->detail_course->classes->name}}</td>
+                    <td>{{$d->detail_course->teacher->name}}</td>
                     <td>{{$d->note}}</td>
                     <td>
-                      <a href="#" class="edit btn btn-xs btn-primary"><i class="fa fa-pencil"></i></a>
-                      <a href="#" class="delete btn btn-xs btn-danger" data-id='{{$d->id}}'><i class="fa fa-times"></i></a>
+                      <a href="/teacher/presence/{{$d->id}}" class="edit btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
+                      <a href="#" class="delete btn btn-xs btn-danger" data-id='{{$d->id}}' data-course_code='{{$d->course_code}}' data-name='{{$d->name}}'><i class="fa fa-times"></i></a>
                     </td>
                   </tr>
                   @endforeach
@@ -65,11 +67,9 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
-  <!-- crate Class Modal -->
   <div class="modal fade" tabindex="-1" role="dialog" id='createModal'>
     <div class="modal-dialog" role="document">
-      <form action="/admin/period" method="post">
+      <form action="/teacher/presence/create" method="post">
         <div class="modal-content">
           <div class="modal-header">
             <strong>Create New Presence</strong><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
@@ -79,13 +79,18 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-feed"></i></span>
-                  <input type="text" class="form-control" placeholder="Year" name="year">
+                  <select name="detail_course_id" class="form-control">
+                      <option>Select Course</option>
+                      @foreach($course as $c)
+                        <option value="{{$c->id}}">{{$c->course->name.", Class ".$c->classes->grade.$c->classes->name}}</option>
+                      @endforeach
+                  </select>
                 </div>
               </div>
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-feed"></i></span>
-                  <input type="text" class="form-control" placeholder="Semester" name="semester">
+                  <textarea name="note" class="form-control" placeholder="Note"></textarea>
                 </div>
               </div>
             </div>
@@ -99,8 +104,9 @@
       </form>
     </div>
   </div>
+  
   @endsection
-  @section('js')
+  @push('js')
     <script src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('/js/dataTables.bootstrap.js') }}"></script>
     <script>
@@ -113,16 +119,16 @@
         var _method = 'delete';
         var _token = '{{csrf_token()}}';
 
-        bootbox.confirm("<b>Delete This Presence?</b>", function(result) {
+        bootbox.confirm("<b>Delete This Presence</b>?", function(result) {
           if (result) {
             toastr.options.timeOut = 0;
             toastr.options.extendedTimeOut = 0;
             toastr.info('<i class="fa fa-spinner fa-spin"></i><br>Process...');
             toastr.options.timeOut = 5000;
             toastr.options.extendedTimeOut = 1000;
-            $.post("/admin/presence/"+id, {id: id, _token:_token, _method:_method})
+            $.post("/teacher/presence/"+id, {id: id, _token:_token, _method:_method})
             .done(function(result) {
-              window.location.replace("/admin/presence/");
+              window.location.replace("/teacher/presence/");
             })
             .fail(function(result) {
               toastr.clear();
@@ -132,4 +138,4 @@
         });
       });
     </script>
-  @stop
+  @endpush
