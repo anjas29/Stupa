@@ -17,4 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('presence', 'ApiPresenceController@getPresence')->middleware('auth:api');
+Route::get('profil', 'ApiPresenceController@getProfil')->middleware('auth:api');
 Route::post('login', 'ApiAuthController@postLogin');

@@ -16,7 +16,7 @@ class CreateTablePresent extends Migration
         Schema::create('present', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('detail_course_id')->unsigned();
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

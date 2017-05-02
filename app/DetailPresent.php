@@ -13,6 +13,11 @@ class DetailPresent extends Model
     	return $this->belongsTo('App\Present');
     }
 
+    public function presence()
+    {
+    	return $this->belongsTo('App\Present', 'present_id');
+    }
+
     public function student()
     {
     	return $this->belongsTo('App\Student');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Student;
 class ApiAuthController extends Controller
 {
    	public function postLogin(Request $request)
@@ -14,9 +14,10 @@ class ApiAuthController extends Controller
 
         if($auth->attempt(array('username' => $username, 'password' => $password))){
             $data = $auth->user();
+            $user = Student::where('id', $data->id)->with('classes')->first();
             return array(
                 'success'=>true,
-                'data'=>$data,
+                'data'=>$user,
                 'api_token'=>$data->api_token
             );
         }else{

@@ -18,7 +18,7 @@ class CreatTableDetailPresent extends Migration
             $table->integer('student_id')->unsigned();
             $table->integer('present_id')->unsigned();
             $table->string('present');
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

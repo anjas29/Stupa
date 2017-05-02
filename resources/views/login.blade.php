@@ -21,6 +21,7 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('/adminlte/dist/css/skins/_all-skins.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/adminlte/css/toastr.min.css') }}">
+  <link rel="shortcut icon" href="/images/logo_white.png" type="image/x-icon" />
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,9 +32,9 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
-  <h2 style="text-align: center;">STUPA</h2>
-  <h5 style="text-align: center;">Students, Teachers, and Parents Application to Monitor Student Attendance in Formal School</h5> 
+  
   <div class="login-logo">
+    <img src="/images/logo.png" style="height: 120px; width: 120px;"> 
   </div>
   <!-- /.login-logo -->
   @if(Session::has('loginFailed'))
@@ -43,7 +44,7 @@
     </div>
   @endif
   <div class="login-box-body">
-    <p class="login-box-msg">Login Here</p>
+    <h3 class="login-box-msg" style="text-align: center;">STUPA</h3>
     <form action="login" method="post">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Username" name="username" value="{{  old('email') }}" required>
@@ -64,6 +65,10 @@
       </div>
     </form>
 
+  </div>
+  <div class="login-box-footer">
+    <br>
+    <div style="text-align: center;">Students, Teachers, and Parents Application to Monitor Student Attendance in Formal School.</div>
   </div>
   <!-- /.login-box-body -->
 </div>

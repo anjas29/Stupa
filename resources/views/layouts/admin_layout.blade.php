@@ -20,7 +20,7 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('/adminlte/dist/css/skins/_all-skins.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/css/toastr.min.css') }}">
-  <link rel="shortcut icon" href="/images/scantour_logo.png" type="image/x-icon" />
+  <link rel="shortcut icon" href="/images/logo_white.png" type="image/x-icon" />
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,11 +36,11 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="/administrator" class="logo">
+    <a href="/admin/index" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b><img src="/images/logo_white.png" class="img img-responsive" style="padding:10px;"></b></span>
+      <span class="logo-mini"><div style="text-align: center;"><img src="/images/logo_white.png" class="img-responsive" style="padding: 5px;"></div></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Stupa</b></span>
+      <span class="logo-lg"><b>STUPA</b></span>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
