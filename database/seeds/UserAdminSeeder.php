@@ -16,11 +16,12 @@ class UserAdminSeeder extends Seeder
 
         $users = [
         	[
-        		'username'=>'admin', 
-        		'password'=>Hash::make('admin'),
-        		'name' => 'Administrator',
-        		'created_at' => Carbon::now(),
-        		'updated_at' => Carbon::now()
+        		'username'    => 'admin', 
+        		'password'    => Hash::make('admin'),
+        		'name'        => 'Administrator',
+                'api_token'   => str_random(60),
+        		'created_at'  => Carbon::now(),
+        		'updated_at'  => Carbon::now()
         	]
         ];
 
