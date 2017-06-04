@@ -23,13 +23,13 @@
         <div class="row">
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-yellow">
-              <span class="info-box-icon"><i class="fa fa-feed"></i></span>
+              <span class="info-box-icon"><i class="fa fa-users"></i></span>
 
               <div class="info-box-content">
-                <span class='info-box-text'>Student</span>
+                <span class='info-box-text'>Students</span>
                 <span class="info-box-number">{{$data['student']}}</span>
                 <span class="progress-description" style="margin-top: 12px;">
-                  <a href="{{route('student.index')}}" style="text-decorations:none; color:inherit;"><b>See more</b></a>
+                  
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -40,13 +40,13 @@
 
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-aqua">
-              <span class="info-box-icon"><i class="fa fa-map-o"></i></span>
+              <span class="info-box-icon"><i class="fa fa-user-secret"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Teacher</span>
+                <span class="info-box-text">Teachers</span>
                 <span class="info-box-number">{{$data['teacher']}}</span>
                 <span class="progress-description" style="margin-top: 12px;">
-                  <a href="{{route('teacher.index')}}" style="text-decorations:none; color:inherit;"><b>See more</b></a>
+                  
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -65,7 +65,7 @@
                 <span class="info-box-text">Active Course</span>
                 <span class="info-box-number">{{$data['course']}}</span>
                 <span class="progress-description" style="margin-top: 12px;">
-                  <a href="{{route('detail_course.index')}}" style="text-decorations:none; color:inherit;"><b>See more</b></a>
+                  <a href="{{route('user_teacher.course.index')}}" style="text-decorations:none; color:inherit;"><b>See more</b></a>
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -76,13 +76,13 @@
 
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-red">
-              <span class="info-box-icon"><i class="fa fa-video-camera  "></i></span>
+              <span class="info-box-icon"><i class="fa fa-calendar-check-o"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">Presence</span>
                 <span class="info-box-number">{{$data['presence']}}</span>
                 <span class="progress-description" style="margin-top: 12px;">
-                  <a href="{{route('presence.index')}}" style="text-decorations:none; color:inherit;"><b>See more</b></a>
+                  <a href="{{route('user_teacher.presence.index')}}" style="text-decorations:none; color:inherit;"><b>See more</b></a>
                 </span>
               </div>
               <!-- /.info-box-content -->
